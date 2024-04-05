@@ -5,7 +5,7 @@ CC := c++
 CPPFLAGS := -Wall -Wextra -Werror -g3 -std=c++98
 #CPPFLAGS := -Wall -Wextra -Werror -g3 -std=c++98 -fsanitize=address
 
-SRC := main.cpp
+SRC := main.cpp BitcoinExchange.cpp
 
 INCLUDES := -I
 
