@@ -21,3 +21,27 @@ private:
     std::string date;
 
 };
+
+class IncorrectLineEX :public std::exception {
+    virtual const char* what() const throw() {
+        return "Incorrect line format";
+    }
+};
+
+class DateNotPossibleEX :public std::exception {
+    virtual const char* what() const throw() {
+        return "Date not possible";
+    }
+};
+
+class DateTooEarlyEX :public std::exception {
+    virtual const char* what() const throw() {
+        return "Date too early";
+    }
+};
+
+class ValueOutOfRangeEX :public std::exception {
+    virtual const char* what() const throw() {
+        return "Value out of range";
+    }
+};

@@ -43,17 +43,17 @@ static void check_input(std::string line)
     convert.str(line.substr(13));
     convert >> value;
     if (line[4] != '-' || line[7] != '-' || line[10] != ' ' || line[11] != '|' || line[12] != ' ')
-        throw std::exception(); //incorrect line format
+        throw IncorrectLineEX(); //incorrect line format
     else if (month < 1 || month > 12 || day < 1 || day > 31)
-        throw std::exception(); // date not possible
+        throw DateNotPossibleEX(); // date not possible
     else if ((month < 7 && month % 2 == 0 && day == 31) || (month > 8 && month % 2 == 1 && day == 31))
-        throw std::exception(); // date not possible
+        throw DateNotPossibleEX(); // date not possible
     else if (month == 2 && (((year % 4 != 0 || (year % 100 == 0 && year % 400 != 0)) && day == 29) || day > 29))
-        throw std::exception(); // date not possible
+        throw DateNotPossibleEX(); // date not possible
     else if (year < 2009 || (year == 2009 && month == 1 && day == 1))
-        throw std::exception(); // date too early
+        throw DateTooEarlyEX(); // date too early
     else if (value < 0 || value > 1000)
-        throw std::exception(); // value out of range
+        throw ValueOutOfRangeEX(); // value out of range
 }
 
 int main(int argc, char **argv)
