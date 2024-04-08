@@ -3,6 +3,10 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <stdio.h>
+#include <fcntl.h>
+#include <fstream>
+#include <sstream>
 
 class BitcoinExchange {
 public:
@@ -16,6 +20,5 @@ public:
 
 private:
     std::string date;
-    std::map<std::string> db;
 
 };

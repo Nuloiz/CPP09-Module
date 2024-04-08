@@ -5,15 +5,16 @@ static int error_check(int argc, char **argv) {
         std::cerr << "Error: Incorrect number of arguments" << std::endl;
         return 1;
     }
-    int fd = open(argv[1], O_RDONLY);
-    if (fd == -1) {
+    std::ifstream fd;
+    /*if (fd.open(argv[1]) == -1) {
         std::cerr << "Error: File does not exist" << std::endl;
         return 1;
-    }
+    } */
+    fd.close();
     return 0;
 }
 
-static int first_line_check(std::string const &line) {
+static int first_line_check(std::string line) {
     if (line != "date | value")
     {
         std::cerr << "Error: Incorrect first line" << std::endl;
@@ -22,9 +23,9 @@ static int first_line_check(std::string const &line) {
     return 0;
 }
 
-static void check_input(std::string const &line)
+static void check_input(std::string line)
 {
-    stringstream convert;
+    std::stringstream convert;
     int year, month, day;
     float value;
 
@@ -45,11 +46,12 @@ static void check_input(std::string const &line)
         throw std::exception(); // date not possible
     else if ((month < 7 && month % 2 == 0 && day == 31) || (month > 8 && month % 2 == 1 && day == 31))
         throw std::exception(); // date not possible
-    else if (month == 2 && (year % 4 != 0 || year % 100 == 0) && day > 28)
+    else if (month == 2 && (((year % 4 != 0 || (year % 100 == 0 && year % 400 != 0)) && day == 29) || day > 29))
         throw std::exception(); // date not possible
     else if (year < 2009 || (year == 2009 && month == 1 && day == 1))
         throw std::exception(); // date too early
-    }
+    else if (value < 0 || value > 1000)
+        throw std::exception(); // value out of range
 }
 
 int main(int argc, char **argv)
@@ -58,17 +60,18 @@ int main(int argc, char **argv)
         return 1;
     BitcoinExchange exchange;
     std::string line;
-    int fd = open(argv[1], O_RDONLY);
-    if (first_line_check(std::getline(fd, line)))
+    std::ifstream fd;
+    fd.open(argv[1]);
+    std::getline(fd, line);
+    if (first_line_check(line))
         return 1;
     while (std::getline(fd, line)) {
         try{
             check_input(line);
-            exchange.get_date(line);
         } catch (std::exception &e) {
             std::cerr << "Error: " << e.what() << std::endl;
             return 1;
         }
     }
-    close(fd);
+    fd.close();
 }
