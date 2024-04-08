@@ -1,6 +1,6 @@
 #include "BitcoinExchange.hpp"
 
-BitcoingExchange::BitcoinExchange() {
+BitcoinExchange::BitcoinExchange() {
     std::cout << "BitcoinExchange constructor called" << std::endl;
 }
 
@@ -10,14 +10,13 @@ BitcoinExchange::BitcoinExchange(BitcoinExchange const &src) {
 }
 
 BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &src) {
-    std::cout << "BitcoinExchange assignment operator called" << std::endl;
+    std::cout << "BitcoinExchange operator= called" << std::endl;
+    if (this != &src) {
+        this->date = src.date;
+    }
     return *this;
 }
 
 BitcoinExchange::~BitcoinExchange() {
     std::cout << "BitcoinExchange destructor called" << std::endl;
-}
-
-BitcoinExchange::check_input(std::string const &line) {
-    std::cout << "check_input called" << std::endl;
 }

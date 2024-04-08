@@ -15,8 +15,7 @@ public:
     BitcoinExchange &operator=(BitcoinExchange const &src);
     ~BitcoinExchange();
 
-    void check_input(std::string const &line);
-    void get_date(std::string const &line);
+    //void get_date(std::string const &line);
 
 private:
     std::string date;

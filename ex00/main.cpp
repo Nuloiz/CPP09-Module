@@ -6,10 +6,12 @@ static int error_check(int argc, char **argv) {
         return 1;
     }
     std::ifstream fd;
-    /*if (fd.open(argv[1]) == -1) {
+    fd.open(argv[1]);
+    if (fd.fail())
+    {
         std::cerr << "Error: File does not exist" << std::endl;
         return 1;
-    } */
+    }
     fd.close();
     return 0;
 }
@@ -30,16 +32,16 @@ static void check_input(std::string line)
     float value;
 
     convert.str(line.substr(0, 4));
-    year >> convert;
+    convert >> year;
     convert.clear();
     convert.str(line.substr(5, 2));
-    month >> convert;
+    convert >> month;
     convert.clear();
     convert.str(line.substr(8, 2));
-    day >> convert;
+    convert >> day;
     convert.clear();
     convert.str(line.substr(13));
-    value >> convert;
+    convert >> value;
     if (line[4] != '-' || line[7] != '-' || line[10] != ' ' || line[11] != '|' || line[12] != ' ')
         throw std::exception(); //incorrect line format
     else if (month < 1 || month > 12 || day < 1 || day > 31)
