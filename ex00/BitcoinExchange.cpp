@@ -17,3 +17,7 @@ BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &src) {
 BitcoinExchange::~BitcoinExchange() {
     std::cout << "BitcoinExchange destructor called" << std::endl;
 }
+
+BitcoinExchange::check_input(std::string const &line) {
+    std::cout << "check_input called" << std::endl;
+}
