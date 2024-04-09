@@ -42,7 +42,7 @@ static void check_input(std::string line)
     convert.clear();
     convert.str(line.substr(13));
     convert >> value;
-    if (line[4] != '-' || line[7] != '-' || line[10] != ' ' || line[11] != '|' || line[12] != ' ')
+    if (line[4] != '-' || line[7] != '-' || ((line[10] != ' ' || line[11] != '|' || line[12] != ' ') && line[10] != ','))
         throw IncorrectLineEX(); //incorrect line format
     else if (month < 1 || month > 12 || day < 1 || day > 31)
         throw DateNotPossibleEX(); // date not possible
@@ -56,6 +56,41 @@ static void check_input(std::string line)
         throw ValueOutOfRangeEX(); // value out of range
 }
 
+static int check_db(BitcoinExchange *exchange)
+{
+    int i = 0;
+    std::ifstream fd;
+    std::string line;
+    fd.open("data.csv");
+    std::getline(fd, line);
+    if (fd.fail())
+    {
+        std::cerr << "Error: Database does not exist" << std::endl;
+        return 1;
+    }
+    else if (line != "date,exchange_rate")
+    {
+        std::cerr << "Error: Incorrect database format" << std::endl;
+        return 1;
+    }
+    try
+    {
+        while (std::getline(fd, line))
+        {
+            check_input(line);
+            i++;
+            exchange->get_data(line);
+        }
+    }
+    catch (std::exception &e)
+    {
+        std::cerr << "Error: " << e.what() << "in line: " << i << " : " << line << std::endl;
+        return 1;
+    }
+    fd.close();
+    return 0;
+}
+
 int main(int argc, char **argv)
 {
     if (error_check(argc, argv))
@@ -67,13 +102,15 @@ int main(int argc, char **argv)
     std::getline(fd, line);
     if (first_line_check(line))
         return 1;
+    if (check_db(&exchange))
+        return 1;
     while (std::getline(fd, line)) {
         try{
             check_input(line);
         } catch (std::exception &e) {
             std::cerr << "Error: " << e.what() << std::endl;
-            return 1;
         }
     }
+    std::cout << exchange.get_bitcoin_values() << std::endl;
     fd.close();
 }

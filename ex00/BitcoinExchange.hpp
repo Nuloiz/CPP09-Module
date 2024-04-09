@@ -15,11 +15,12 @@ public:
     BitcoinExchange &operator=(BitcoinExchange const &src);
     ~BitcoinExchange();
 
-    //void get_date(std::string const &line);
+    void get_data(std::string const &line);
+    int get_bitcoin_values() const;
 
 private:
-    std::string date;
-
+    std::map<std::string, double> bitcoin_values;
+    int iterator;
 };
 
 class IncorrectLineEX :public std::exception {
