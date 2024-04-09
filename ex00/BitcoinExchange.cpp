@@ -29,3 +29,7 @@ void BitcoinExchange::get_data(const std::string &line)
 int BitcoinExchange::get_bitcoin_values() const {
     return iterator;
 }
+
+void BitcoinExchange::set_iterator(int i) {
+    iterator = i;
+}

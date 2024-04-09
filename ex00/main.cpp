@@ -40,7 +40,10 @@ static void check_input(std::string line)
     convert.str(line.substr(8, 2));
     convert >> day;
     convert.clear();
-    convert.str(line.substr(13));
+    if (line[10] == ',')
+        convert.str(line.substr(10, line.size() - 10));
+    else
+        convert.str(line.substr(13, line.size() - 13));
     convert >> value;
     if (line[4] != '-' || line[7] != '-' || ((line[10] != ' ' || line[11] != '|' || line[12] != ' ') && line[10] != ','))
         throw IncorrectLineEX(); //incorrect line format
@@ -96,6 +99,7 @@ int main(int argc, char **argv)
     if (error_check(argc, argv))
         return 1;
     BitcoinExchange exchange;
+    exchange.set_iterator(0);
     std::string line;
     std::ifstream fd;
     fd.open(argv[1]);

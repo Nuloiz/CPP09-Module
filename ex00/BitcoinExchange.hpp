@@ -17,6 +17,7 @@ public:
 
     void get_data(std::string const &line);
     int get_bitcoin_values() const;
+    void set_iterator(int i);
 
 private:
     std::map<std::string, double> bitcoin_values;
