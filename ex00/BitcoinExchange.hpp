@@ -15,6 +15,18 @@ public:
     BitcoinExchange &operator=(BitcoinExchange const &src);
     ~BitcoinExchange();
 
+    typedef typename std::map<std::string, double>::container_type::iterator iterator;
+
+    iterator begin()
+    {
+        return std::map<std::string, double>::c.begin();
+    }
+
+    iterator end()
+    {
+        return std::map<std::string, double>::c.end();
+    }
+
     void get_data(std::string const &line);
     int get_bitcoin_values() const;
     void set_iterator(int i);

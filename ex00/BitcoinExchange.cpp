@@ -33,3 +33,4 @@ int BitcoinExchange::get_bitcoin_values() const {
 void BitcoinExchange::set_iterator(int i) {
     iterator = i;
 }
+

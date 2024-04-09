@@ -108,10 +108,23 @@ int main(int argc, char **argv)
         return 1;
     if (check_db(&exchange))
         return 1;
-    while (std::getline(fd, line)) {
-        try{
+    while (std::getline(fd, line))
+    {
+        try
+        {
             check_input(line);
-        } catch (std::exception &e) {
+            std::map<std::string, double>::iterator it = exchange.begin();
+            while (it != exchange.end() && it->first < line.substr(0, 10))
+                it++;
+            std::stringstream convert(line.substr(13, line.size() - 13));
+            if (it->first == line.substr(0, 10))
+                it--;
+            double num;
+            convert >> num;
+            std::cout << line.substr(0, 10) << " => " << num << " = " << it->second * num << std::endl;
+        }
+        catch (std::exception &e)
+        {
             std::cerr << "Error: " << e.what() << std::endl;
         }
     }
