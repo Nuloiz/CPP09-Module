@@ -118,11 +118,12 @@ int main(int argc, char **argv)
             std::string date = line.substr(0, 10);
             try
             {
-                std::cout << date << " => " << num << " = " << exchange.get_bitcoin_values().at(date) * num << std::endl;
+                double tmp = exchange.get_bitcoin_values().at(date);
+                std::cout << date << " => " << num << " = " << tmp * num << std::endl;
             }
             catch (std::exception &e)
             {
-                std::cout << date << " => " << num << " = " << exchange.get_bitcoin_values().lower_bound(exchange.get_bitcoin_values().begin(), exchange.get_bitcoin_values().end(), date) * num << std::endl;
+                std::cout << date << " => " << num << " = " << exchange.get_bitcoin_values().lower_bound(date)->second * num << std::endl;
             }
         }
         catch (std::exception &e)
