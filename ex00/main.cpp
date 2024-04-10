@@ -99,7 +99,6 @@ int main(int argc, char **argv)
     if (error_check(argc, argv))
         return 1;
     BitcoinExchange exchange;
-    exchange.set_iterator(0);
     std::string line;
     std::ifstream fd;
     fd.open(argv[1]);
@@ -113,21 +112,22 @@ int main(int argc, char **argv)
         try
         {
             check_input(line);
-            std::map<std::string, double>::iterator it = exchange.begin();
-            while (it != exchange.end() && it->first < line.substr(0, 10))
-                it++;
             std::stringstream convert(line.substr(13, line.size() - 13));
-            if (it->first == line.substr(0, 10))
-                it--;
             double num;
             convert >> num;
-            std::cout << line.substr(0, 10) << " => " << num << " = " << it->second * num << std::endl;
+            try
+            {
+                std::cout << line.substr(0, 10) << " => " << num << " = " << exchange.get_bitcoin_values().at(line.substr(0, 10)) * num << std::endl;
+            }
+            catch (std::exception &e)
+            {
+                std::cout << line.substr(0, 10) << " => " << num << " = " << exchange.get_bitcoin_values().lower_bound(exchange.get_bitcoin_values().begin(), exchange.get_bitcoin_values().end(), line.substr(0, 10)) * num << std::endl;
+            }
         }
         catch (std::exception &e)
         {
             std::cerr << "Error: " << e.what() << std::endl;
         }
     }
-    std::cout << exchange.get_bitcoin_values() << std::endl;
     fd.close();
 }
