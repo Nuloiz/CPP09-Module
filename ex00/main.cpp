@@ -115,13 +115,14 @@ int main(int argc, char **argv)
             std::stringstream convert(line.substr(13, line.size() - 13));
             double num;
             convert >> num;
+            std::string date = line.substr(0, 10);
             try
             {
-                std::cout << line.substr(0, 10) << " => " << num << " = " << exchange.get_bitcoin_values().at(line.substr(0, 10)) * num << std::endl;
+                std::cout << date << " => " << num << " = " << exchange.get_bitcoin_values().at(date) * num << std::endl;
             }
             catch (std::exception &e)
             {
-                std::cout << line.substr(0, 10) << " => " << num << " = " << exchange.get_bitcoin_values().lower_bound(exchange.get_bitcoin_values().begin(), exchange.get_bitcoin_values().end(), line.substr(0, 10)) * num << std::endl;
+                std::cout << date << " => " << num << " = " << exchange.get_bitcoin_values().lower_bound(exchange.get_bitcoin_values().begin(), exchange.get_bitcoin_values().end(), date) * num << std::endl;
             }
         }
         catch (std::exception &e)
