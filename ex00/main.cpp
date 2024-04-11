@@ -120,15 +120,12 @@ int main(int argc, char **argv)
             double num;
             convert >> num;
             std::string date = line.substr(0, 10);
-            try
-            {
-                double tmp = exchange.get_bitcoin_values().at(date);
-                std::cout << "Line: " << l << " | " << date << " => " << num << " = " << tmp * num << std::endl;
-            }
-            catch (std::exception &e)
-            {
-                std::cout << "Line: " << l << " | " << date << " => " << num << " = " << exchange.get_bitcoin_values().lower_bound(date)->second * num << std::endl;
-            }
+            std::map<std::string, double>::iterator it = exchange.get_bitcoin_values().begin();
+            std::map<std::string, double>::iterator ite = exchange.get_bitcoin_values().end();
+            while (it != ite && it->first > date)
+                it--;
+            double tmp = it->second;
+            std::cout << "Line: " << l << " | " << date << " => " << num << " = " << tmp * num << std::endl;
         }
         catch (std::exception &e)
         {
