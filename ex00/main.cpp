@@ -31,6 +31,8 @@ static void check_input(std::string line)
     int year, month, day;
     float value;
 
+    if (line.empty())
+        throw IncorrectLineEX(); //incorrect line format
     convert.str(line.substr(0, 4));
     convert >> year;
     convert.clear();
@@ -98,6 +100,7 @@ int main(int argc, char **argv)
 {
     if (error_check(argc, argv))
         return 1;
+    int l = 1;
     BitcoinExchange exchange;
     std::string line;
     std::ifstream fd;
@@ -109,6 +112,7 @@ int main(int argc, char **argv)
         return 1;
     while (std::getline(fd, line))
     {
+        l++;
         try
         {
             check_input(line);
@@ -119,16 +123,16 @@ int main(int argc, char **argv)
             try
             {
                 double tmp = exchange.get_bitcoin_values().at(date);
-                std::cout << date << " => " << num << " = " << tmp * num << std::endl;
+                std::cout << "Line: " << l << " | " << date << " => " << num << " = " << tmp * num << std::endl;
             }
             catch (std::exception &e)
             {
-                std::cout << date << " => " << num << " = " << exchange.get_bitcoin_values().lower_bound(date)->second * num << std::endl;
+                std::cout << "Line: " << l << " | " << date << " => " << num << " = " << exchange.get_bitcoin_values().lower_bound(date)->second * num << std::endl;
             }
         }
         catch (std::exception &e)
         {
-            std::cerr << "Error: " << e.what() << std::endl;
+            std::cerr << "Line: " << l << " | " << "Error: " << e.what() << std::endl;
         }
     }
     fd.close();
