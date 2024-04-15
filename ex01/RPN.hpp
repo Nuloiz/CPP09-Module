@@ -13,12 +13,10 @@ public:
     RPN &operator=(RPN const &src);
     ~RPN();
 
-    void calculate();
+    void calculate(char op);
     void print_result() const;
     void fill_stacks(std::string const &line);
 
 private:
-    std::stack<int> stack_num;
-    std::stack<char> stack_op;
-    int result;
+    std::stack<int> stack;
 };

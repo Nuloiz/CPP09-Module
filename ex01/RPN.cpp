@@ -1,6 +1,6 @@
 #include "RPN.hpp"
 
-RPN::RPN() : result(0) {
+RPN::RPN(){
 }
 
 RPN::RPN(RPN const &src) {
@@ -9,9 +9,7 @@ RPN::RPN(RPN const &src) {
 
 RPN &RPN::operator=(RPN const &src) {
     if (this != &src) {
-        stack_num = src.stack_num;
-        stack_op = src.stack_op;
-        result = src.result;
+        stack = src.stack;
     }
     return *this;
 }
@@ -19,47 +17,47 @@ RPN &RPN::operator=(RPN const &src) {
 RPN::~RPN() {
 }
 
-void RPN::calculate()
+void RPN::calculate(char op)
 {
-    int tmp;
+    int first;
+    int second;
+    int result;
 
-    if (stack_num.size() == 0)
+    if (stack.size() < 2)
     {
-        std::cerr << "Error: No numbers to calculate" << std::endl;
+        std::cerr << "Error: Not enough numbers to calculate" << std::endl;
         throw std::exception();
     }
-    result = stack_num.top();
-    stack_num.pop();
-    while (stack_num.size() > 0 && stack_op.size() > 0)
-    {
-        tmp = stack_num.top();
-        stack_num.pop();
-        if (stack_op.top() == '+')
-            result = result + tmp;
-        else if (stack_op.top() == '-')
-            result = result - tmp;
-        else if (stack_op.top() == '*')
-            result = result * tmp;
-        else if (stack_op.top() == '/')
-            result = result / tmp;
-        stack_op.pop();
-    }
-    if (stack_num.size() > 0 || stack_op.size() > 0)
-    {
-        std::cerr << "Error: Incorrect RPN format" << std::endl;
-        throw std::exception();
-    }
+    first = stack.top();
+    stack.pop();
+    second = stack.top();
+    stack.pop();
+    if (op == '+')
+        result = first + second;
+    else if (op == '-')
+        result = first - second;
+    else if (op == '*')
+        result = first * second;
+    else if (op == '/')
+        result = first / second;
+    stack.push(result);
+    std::cout << result << std::endl;
 }
 
 void RPN::print_result() const
 {
-    std::cout << result << std::endl;
+    if (stack.size() != 1)
+    {
+        std::cerr << "Error: Incorrect line format" << std::endl;
+        throw std::exception();
+    }
+    std::cout << stack.top() << std::endl;
 }
 
 void RPN::fill_stacks(const std::string &line)
 {
-    int i = line.size() - 1;
-    while (i >= 0)
+    int i = 0;
+    while (i < (int)line.size())
     {
         if (i % 2 != 0)
         {
@@ -72,15 +70,15 @@ void RPN::fill_stacks(const std::string &line)
         else
         {
             if (line[i] >= '0' && line[i] <= '9')
-                stack_num.push(line[i] - '0');
+                stack.push(line[i] - '0');
             else if (line[i] == '+' || line[i] == '-' || line[i] == '*' || line[i] == '/')
-                stack_op.push(line[i]);
+                calculate(line[i]);
             else
             {
                 std::cerr << "Error: Incorrect line format" << std::endl;
                 throw std::exception();
             }
         }
-        i--;
+        i++;
     }
 }

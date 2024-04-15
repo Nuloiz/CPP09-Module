@@ -9,7 +9,6 @@ int main(int argc, char **argv) {
     try
     {
         rpn.fill_stacks(argv[1]);
-        rpn.calculate();
         rpn.print_result();
     }
     catch (std::exception &e)
