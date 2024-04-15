@@ -28,9 +28,9 @@ void RPN::calculate(char op)
         std::cerr << "Error: Not enough numbers to calculate" << std::endl;
         throw std::exception();
     }
-    first = stack.top();
-    stack.pop();
     second = stack.top();
+    stack.pop();
+    first = stack.top();
     stack.pop();
     if (op == '+')
         result = first + second;
@@ -41,7 +41,7 @@ void RPN::calculate(char op)
     else if (op == '/')
         result = first / second;
     stack.push(result);
-    std::cout << result << std::endl;
+    std::cout << first << op << second << " = " << result << std::endl;
 }
 
 void RPN::print_result() const
