@@ -18,10 +18,18 @@ public:
 
     std::vector<int> get_vector();
     std::list<int> get_list();
-    void insert_vector(int value);
-    void insert_list(int value);
+    void print_vector();
+    void bin_s_vector(int num);
+    void bin_s_list(int num);
 
 private:
     std::vector<int> vector;
     std::list<int> list;
+};
+
+
+class DoubleNumber:public std::exception {
+    virtual const char* what() const throw() {
+        return "Number exists twice";
+    }
 };
