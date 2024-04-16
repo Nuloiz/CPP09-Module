@@ -20,6 +20,7 @@ int input_check(char **argv)
 
 int main(int argc, char **argv)
 {
+    argv++;
     if (argc < 2)
     {
         std::cout << "Error: No arguments provided" << std::endl;
@@ -33,8 +34,7 @@ int main(int argc, char **argv)
     try
     {
         PmergeMe p;
-        binary_search(p.get_vector().begin(), p.get_vector().end(), 2);
-        //binary_search(&(p.get_vector()), 2)
+        std::cout << binary_search(p.get_vector().begin(), p.get_vector().end(), 2);
     }
     catch (std::exception &e)
     {
