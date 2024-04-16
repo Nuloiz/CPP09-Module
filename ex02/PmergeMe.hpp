@@ -14,4 +14,7 @@ public:
     PmergeMe &operator=(PmergeMe const &src);
     ~PmergeMe();
 
+private:
+    std::vector<int> vector;
+    std::list<int> list;
 };
