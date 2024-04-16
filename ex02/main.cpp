@@ -33,6 +33,8 @@ int main(int argc, char **argv)
     try
     {
         PmergeMe p;
+        binary_search(p.get_vector().begin(), p.get_vector().end(), 2);
+        //binary_search(&(p.get_vector()), 2)
     }
     catch (std::exception &e)
     {
