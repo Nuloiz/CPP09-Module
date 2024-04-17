@@ -6,19 +6,18 @@ static void input_check(char **argv, PmergeMe *p)
     int k;
     while (argv[i])
     {
-        std::cout << argv[i] << std::endl;
         k = 0;
         while (argv[i][k])
         {
-            std::cout << argv[i][k] << std::endl;
-            if (!isdigit(argv[i][k]) && argv[i][k] != ' ')
+            if (!isdigit(argv[i][k]) && !iswspace(argv[i][k]))
                 throw InvalidInput();
             if (argv[i][k] != ' ')
             {
                 p->fill_vector(argv[i], &k);
                 //p->fill_list(argv[i], &k);
             }
-            k++;
+            else
+                k++;
         }
         i++;
     }
