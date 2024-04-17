@@ -18,6 +18,8 @@ public:
 
     std::vector<int> get_vector();
     std::list<int> get_list();
+    //void fill_vector(char **argv);
+    //void fill_list(char **argv);
     void print_vector();
     void bin_s_vector(int num);
     void bin_s_list(int num);

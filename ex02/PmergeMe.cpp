@@ -71,20 +71,29 @@ void PmergeMe::bin_s_vector(int num)
     std::list<int>::iterator begin = list.begin();
     std::list<int>::iterator end = list.end();
     std::list<int>::iterator mid;
-    while (begin < end)
+    while (*begin < *end)
     {
         mid = begin + (end - begin) / 2;
         if (*mid == num)
             throw DoubleNumber();
         else if (*mid < num)
-            begin = mid + 1;
+        {
+            mid++;
+            begin = mid;
+        }
         else
-            end = mid - 1;
+        {
+            mid--;
+            end = mid;
+        }
     }
     if (*begin == num)
         throw std::exception();
     if (*begin < num)
-        list.insert(begin + 1, num);
+    {
+        begin++;
+        list.insert(begin, num);
+    }
     else
         list.insert(begin, num);
 }*/

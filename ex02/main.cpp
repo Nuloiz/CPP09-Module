@@ -34,7 +34,6 @@ int main(int argc, char **argv)
     try
     {
         PmergeMe p;
-        //p.insert_vector(2)
         p.print_vector();
         std::cout << "----------------" << std::endl;
         p.bin_s_vector(2);
