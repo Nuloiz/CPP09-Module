@@ -1,21 +1,27 @@
 #include "PmergeMe.hpp"
 
-int input_check(char **argv)
+static void input_check(char **argv, PmergeMe *p)
 {
-    int i = 1;
+    int i = 0;
     int k;
     while (argv[i])
     {
+        std::cout << argv[i] << std::endl;
         k = 0;
         while (argv[i][k])
         {
-            if (!isdigit(argv[i][k] && argv[i][k] != ' '))
-                return (1);
+            std::cout << argv[i][k] << std::endl;
+            if (!isdigit(argv[i][k]) && argv[i][k] != ' ')
+                throw InvalidInput();
+            if (argv[i][k] != ' ')
+            {
+                p->fill_vector(argv[i], &k);
+                //p->fill_list(argv[i], &k);
+            }
             k++;
         }
         i++;
     }
-    return (0);
 }
 
 int main(int argc, char **argv)
@@ -26,17 +32,13 @@ int main(int argc, char **argv)
         std::cout << "Error: No arguments provided" << std::endl;
         return (1);
     }
-    if (input_check(argv))
-    {
-        std::cout << "Error: Invalid input" << std::endl;
-        return (1);
-    }
     try
     {
         PmergeMe p;
+        input_check(argv, &p);
         p.print_vector();
         std::cout << "----------------" << std::endl;
-        p.bin_s_vector(2);
+        p.bin_s_vector(4);
         p.print_vector();
     }
     catch (std::exception &e)

@@ -18,8 +18,8 @@ public:
 
     std::vector<int> get_vector();
     std::list<int> get_list();
-    //void fill_vector(char **argv);
-    //void fill_list(char **argv);
+    void fill_vector(char *argv, int *k);
+    //void fill_list(char *argv, int *k);
     void print_vector();
     void bin_s_vector(int num);
     void bin_s_list(int num);
@@ -33,5 +33,11 @@ private:
 class DoubleNumber:public std::exception {
     virtual const char* what() const throw() {
         return "Number exists twice";
+    }
+};
+
+class InvalidInput:public std::exception {
+    virtual const char* what() const throw() {
+        return "Invalid Input";
     }
 };

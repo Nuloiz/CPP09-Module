@@ -2,9 +2,6 @@
 
 PmergeMe::PmergeMe()
 {
-    vector.push_back(-10);
-    vector.push_back(1);
-    vector.push_back(3);
 }
 
 PmergeMe::PmergeMe(PmergeMe const &src)
@@ -31,6 +28,20 @@ std::vector<int> PmergeMe::get_vector()
 std::list<int> PmergeMe::get_list()
 {
     return list;
+}
+
+void PmergeMe::fill_vector(char *argv, int *k)
+{
+    int num = 0;
+    while (argv[*k])
+    {
+        if (isdigit(argv[*k]))
+            num = num * 10 + argv[*k] - '0';
+        else
+            break;
+        (*k)++;
+    }
+    vector.push_back(num);
 }
 
 void PmergeMe::print_vector()
