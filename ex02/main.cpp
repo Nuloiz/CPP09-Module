@@ -40,8 +40,8 @@ int main(int argc, char **argv)
         std::cout << "Deque:" << std::endl;
         p.print_deque();
         std::cout << "----------------" << std::endl;
-        p.bin_s_vector(89);
-        p.bin_s_deque(89);
+        //deque.insert(std::lower_bound(deque.begin(), deque.end(), num), num);
+        //vector.insert(std::lower_bound(vector.begin(), vector.end(), num), num);
         std::cout << "Vector:" << std::endl;
         p.print_vector();
         std::cout << "Deque:" << std::endl;

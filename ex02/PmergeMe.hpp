@@ -22,8 +22,6 @@ public:
     void fill_deque(char *argv, int k);
     void print_vector();
     void print_deque();
-    void bin_s_vector(int num);
-    void bin_s_deque(int num);
 
 private:
     std::vector<int> vector;
