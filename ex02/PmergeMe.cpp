@@ -25,9 +25,9 @@ std::vector<int> PmergeMe::get_vector()
     return vector;
 }
 
-std::list<int> PmergeMe::get_list()
+std::deque<int> PmergeMe::get_deque()
 {
-    return list;
+    return deque;
 }
 
 void PmergeMe::fill_vector(char *argv, int *k)
@@ -44,7 +44,7 @@ void PmergeMe::fill_vector(char *argv, int *k)
     vector.push_back(num);
 }
 
-void PmergeMe::fill_list(char *argv, int k)
+void PmergeMe::fill_deque(char *argv, int k)
 {
     int num = 0;
     while (argv[k])
@@ -55,7 +55,7 @@ void PmergeMe::fill_list(char *argv, int k)
             break;
         k++;
     }
-    list.push_back(num);
+    deque.push_back(num);
 }
 
 void PmergeMe::print_vector()
@@ -68,10 +68,10 @@ void PmergeMe::print_vector()
     }
 }
 
-void PmergeMe::print_list()
+void PmergeMe::print_deque()
 {
-    std::list<int>::iterator it = list.begin();
-    while (it != list.end())
+    std::deque<int>::iterator it = deque.begin();
+    while (it != deque.end())
     {
         std::cout << *it << std::endl;
         it++;
@@ -101,35 +101,26 @@ void PmergeMe::bin_s_vector(int num)
         vector.insert(begin, num);
 }
 
-/*void PmergeMe::bin_s_list(int num)
+void PmergeMe::bin_s_deque(int num)
 {
-    std::list<int>::iterator begin = list.begin();
-    std::list<int>::iterator end = list.end();
-    std::list<int>::iterator mid;
-    while (*begin < *end)
+    std::deque<int>::iterator begin = deque.begin();
+    std::deque<int>::iterator end = deque.end();
+    std::deque<int>::iterator mid;
+    while (begin < end)
     {
         mid = begin + (end - begin) / 2;
         if (*mid == num)
             throw DoubleNumber();
         else if (*mid < num)
-        {
-            mid++;
-            begin = mid;
-        }
+            begin = mid + 1;
         else
-        {
-            mid--;
-            end = mid;
-        }
+            end = mid - 1;
     }
     if (*begin == num)
         throw std::exception();
     if (*begin < num)
-    {
-        begin++;
-        list.insert(begin, num);
-    }
+        deque.insert(begin + 1, num);
     else
-        list.insert(begin, num);
-}*/
+        deque.insert(begin, num);
+}
 

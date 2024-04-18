@@ -13,7 +13,7 @@ static void input_check(char **argv, PmergeMe *p)
                 throw InvalidInput();
             if (argv[i][k] != ' ')
             {
-                p->fill_list(argv[i], k);
+                p->fill_deque(argv[i], k);
                 p->fill_vector(argv[i], &k);
             }
             else
@@ -37,15 +37,15 @@ int main(int argc, char **argv)
         input_check(argv, &p);
         std::cout << "Vector:" << std::endl;
         p.print_vector();
-        std::cout << "List:" << std::endl;
-        p.print_list();
+        std::cout << "Deque:" << std::endl;
+        p.print_deque();
         std::cout << "----------------" << std::endl;
         p.bin_s_vector(4);
-        //p.bin_s_list(4);
+        p.bin_s_deque(89);
         std::cout << "Vector:" << std::endl;
         p.print_vector();
-        std::cout << "List:" << std::endl;
-        p.print_list();
+        std::cout << "Deque:" << std::endl;
+        p.print_deque();
     }
     catch (std::exception &e)
     {
