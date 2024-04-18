@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <vector>
-#include <list>
+#include <deque>
 #include <algorithm>
 #include <exception>
 #include <bits/stdc++.h>
@@ -17,17 +17,17 @@ public:
     ~PmergeMe();
 
     std::vector<int> get_vector();
-    std::list<int> get_list();
+    std::deque<int> get_deque();
     void fill_vector(char *argv, int *k);
-    void fill_list(char *argv, int k);
+    void fill_deque(char *argv, int k);
     void print_vector();
-    void print_list();
+    void print_deque();
     void bin_s_vector(int num);
-    void bin_s_list(int num);
+    void bin_s_deque(int num);
 
 private:
     std::vector<int> vector;
-    std::list<int> list;
+    std::deque<int> deque;
 };
 
 
