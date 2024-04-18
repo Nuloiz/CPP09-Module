@@ -44,10 +44,34 @@ void PmergeMe::fill_vector(char *argv, int *k)
     vector.push_back(num);
 }
 
+void PmergeMe::fill_list(char *argv, int k)
+{
+    int num = 0;
+    while (argv[k])
+    {
+        if (isdigit(argv[k]))
+            num = num * 10 + argv[k] - '0';
+        else
+            break;
+        k++;
+    }
+    list.push_back(num);
+}
+
 void PmergeMe::print_vector()
 {
     std::vector<int>::iterator it = vector.begin();
     while (it != vector.end())
+    {
+        std::cout << *it << std::endl;
+        it++;
+    }
+}
+
+void PmergeMe::print_list()
+{
+    std::list<int>::iterator it = list.begin();
+    while (it != list.end())
     {
         std::cout << *it << std::endl;
         it++;
