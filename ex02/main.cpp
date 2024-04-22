@@ -31,26 +31,34 @@ int main(int argc, char **argv)
         std::cout << "Error: No arguments provided" << std::endl;
         return (1);
     }
+    PmergeMe p;
     try
     {
-        PmergeMe p;
         input_check(argv, &p);
         std::cout << "Vector:" << std::endl;
         p.print_vector();
-        std::cout << "Deque:" << std::endl;
-        p.print_deque();
         std::cout << "----------------" << std::endl;
-        //deque.insert(std::lower_bound(deque.begin(), deque.end(), num), num);
+        p.create_pairs_vector();
         //vector.insert(std::lower_bound(vector.begin(), vector.end(), num), num);
         std::cout << "Vector:" << std::endl;
         p.print_vector();
+    }
+    catch (std::exception &e)
+    {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
+    try {
+        std::cout << "Deque:" << std::endl;
+        p.print_deque();
+        std::cout << "----------------" << std::endl;
+        p.create_pairs_deque();
+        //deque.insert(std::lower_bound(deque.begin(), deque.end(), num), num);
         std::cout << "Deque:" << std::endl;
         p.print_deque();
     }
     catch (std::exception &e)
     {
         std::cout << "Error: " << e.what() << std::endl;
-        return (1);
     }
     return (0);
 }

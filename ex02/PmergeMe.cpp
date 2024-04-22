@@ -1,5 +1,7 @@
 #include "PmergeMe.hpp"
 
+static void sort_pairs(Pairs &pairs);
+
 PmergeMe::PmergeMe()
 {
 }
@@ -58,6 +60,54 @@ void PmergeMe::fill_deque(char *argv, int k)
     deque.push_back(num);
 }
 
+Pairs PmergeMe::create_pairs_vector()
+{
+    Pairs pairs;
+    while (vector.size() > 1)
+    {
+        std::pair<int, int> pair;
+        pair.first = vector.begin();
+        vector.erase(vector.begin());
+        pair.second = vector.begin();
+        vector.erase(vector.begin());
+        pairs.push_back(pair);
+    }
+    if (vector.size() == 1)
+    {
+        std::pair<int, int> pair;
+        pair.first = vector.begin();
+        vector.erase(vector.begin());
+        pair.second = -1;
+        pairs.push_back(pair);
+    }
+    sort_pairs(pairs);
+    return (pairs);
+}
+
+Pairs PmergeMe::create_pairs_deque()
+{
+    Pairs pairs;
+    while (deque.size() > 1)
+    {
+        std::pair<int, int> pair;
+        pair.first = deque.begin();
+        deque.erase(deque.begin());
+        pair.second = deque.begin();
+        deque.erase(deque.begin());
+        pairs.push_back(pair);
+    }
+    if (deque.size() == 1)
+    {
+        std::pair<int, int> pair;
+        pair.first = deque.begin();
+        deque.erase(deque.begin());
+        pair.second = -1;
+        pairs.push_back(pair);
+    }
+    sort_pairs(pairs);
+    return (pairs);
+}
+
 void PmergeMe::print_vector()
 {
     std::vector<int>::iterator it = vector.begin();
@@ -78,5 +128,17 @@ void PmergeMe::print_deque()
     }
 }
 
-
-
+static void sort_pairs(Pairs &pairs)
+{
+    int i = 0;
+    while (i < (int)pairs.size())
+    {
+        if (pairs[i].first > pairs[i].second)
+        {
+            int tmp = pairs[i].first;
+            pairs[i].first = pairs[i].second;
+            pairs[i].second = tmp;
+        }
+        i++;
+    }
+}
