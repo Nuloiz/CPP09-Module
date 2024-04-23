@@ -1,6 +1,7 @@
 #include "PmergeMe.hpp"
 
 static void sort_pairs(Pairs &pairs);
+static Pairs merge_pairs(Pairs &left, Pairs &right);
 
 PmergeMe::PmergeMe()
 {
@@ -141,4 +142,42 @@ static void sort_pairs(Pairs &pairs)
         }
         i++;
     }
+}
+
+Pairs sort_all_pairs(Pairs &pairs)
+{
+    Pairs left = pairs(0, pairs.size() / 2);
+    Pairs right = pairs(pairs.size() / 2, pairs.size());
+    left = sort_all_pairs(left);
+    right = sort_all_pairs(right);
+    return (merge_pairs(left, right));
+}
+
+static Pairs merge_pairs(Pairs &left, Pairs &right)
+{
+    Pairs merged;
+    while (left.size() > 0 && right.size() > 0)
+    {
+        if (left[0].first < right[0].first)
+        {
+            merged.push_back(left[0]);
+            left.erase(left.begin());
+        }
+        else
+        {
+            merged.push_back(right[0]);
+            right.erase(right.begin());
+        }
+    }
+    if (left.size() > 0)
+    {
+        merged.push_back(left[0]);
+        left.erase(left.begin());
+    }
+    else if (right.size() > 0)
+    {
+        merged.push_back(right[0]);
+        right.erase(right.begin());
+    }
+    return (merged);
 }

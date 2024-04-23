@@ -34,6 +34,8 @@ private:
     std::deque<int> deque;
 };
 
+Pairs sort_all_pairs(Pairs &pairs);
+
 class DoubleNumber:public std::exception {
     virtual const char* what() const throw() {
         return "Number exists twice";

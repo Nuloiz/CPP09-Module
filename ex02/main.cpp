@@ -42,6 +42,10 @@ int main(int argc, char **argv)
         pairs = p.create_pairs_vector();
         for (Pairs::iterator it = pairs.begin(); it != pairs.end(); it++)
             std::cout << it->first << " " << it->second << std::endl;
+        std::cout << "----------------" << std::endl;
+        pairs = sort_all_pairs(pairs);
+        for (Pairs::iterator it = pairs.begin(); it != pairs.end(); it++)
+            std::cout << it->first << " " << it->second << std::endl;
         //vector.insert(std::lower_bound(vector.begin(), vector.end(), num), num);
         std::cout << "----------------" << std::endl;
         p.print_vector();
@@ -55,6 +59,10 @@ int main(int argc, char **argv)
         p.print_deque();
         std::cout << "----------------" << std::endl;
         pairs = p.create_pairs_deque();
+        for (Pairs::iterator it = pairs.begin(); it != pairs.end(); it++)
+            std::cout << it->first << " " << it->second << std::endl;
+        std::cout << "----------------" << std::endl;
+        sort_all_pairs(pairs);
         for (Pairs::iterator it = pairs.begin(); it != pairs.end(); it++)
             std::cout << it->first << " " << it->second << std::endl;
         //deque.insert(std::lower_bound(deque.begin(), deque.end(), num), num);
