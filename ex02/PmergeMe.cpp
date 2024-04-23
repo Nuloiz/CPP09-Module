@@ -66,16 +66,16 @@ Pairs PmergeMe::create_pairs_vector()
     while (vector.size() > 1)
     {
         std::pair<int, int> pair;
-        pair.first = vector.begin();
+        pair.first = *vector.begin();
         vector.erase(vector.begin());
-        pair.second = vector.begin();
+        pair.second = *vector.begin();
         vector.erase(vector.begin());
         pairs.push_back(pair);
     }
     if (vector.size() == 1)
     {
         std::pair<int, int> pair;
-        pair.first = vector.begin();
+        pair.first = *vector.begin();
         vector.erase(vector.begin());
         pair.second = -1;
         pairs.push_back(pair);
@@ -90,16 +90,16 @@ Pairs PmergeMe::create_pairs_deque()
     while (deque.size() > 1)
     {
         std::pair<int, int> pair;
-        pair.first = deque.begin();
+        pair.first = *deque.begin();
         deque.erase(deque.begin());
-        pair.second = deque.begin();
+        pair.second = *deque.begin();
         deque.erase(deque.begin());
         pairs.push_back(pair);
     }
     if (deque.size() == 1)
     {
         std::pair<int, int> pair;
-        pair.first = deque.begin();
+        pair.first = *deque.begin();
         deque.erase(deque.begin());
         pair.second = -1;
         pairs.push_back(pair);

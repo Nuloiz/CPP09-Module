@@ -32,15 +32,18 @@ int main(int argc, char **argv)
         return (1);
     }
     PmergeMe p;
+    Pairs pairs;
     try
     {
         input_check(argv, &p);
         std::cout << "Vector:" << std::endl;
         p.print_vector();
         std::cout << "----------------" << std::endl;
-        p.create_pairs_vector();
+        pairs = p.create_pairs_vector();
+        for (Pairs::iterator it = pairs.begin(); it != pairs.end(); it++)
+            std::cout << it->first << " " << it->second << std::endl;
         //vector.insert(std::lower_bound(vector.begin(), vector.end(), num), num);
-        std::cout << "Vector:" << std::endl;
+        std::cout << "----------------" << std::endl;
         p.print_vector();
     }
     catch (std::exception &e)
@@ -51,9 +54,11 @@ int main(int argc, char **argv)
         std::cout << "Deque:" << std::endl;
         p.print_deque();
         std::cout << "----------------" << std::endl;
-        p.create_pairs_deque();
+        pairs = p.create_pairs_deque();
+        for (Pairs::iterator it = pairs.begin(); it != pairs.end(); it++)
+            std::cout << it->first << " " << it->second << std::endl;
         //deque.insert(std::lower_bound(deque.begin(), deque.end(), num), num);
-        std::cout << "Deque:" << std::endl;
+        std::cout << "----------------" << std::endl;
         p.print_deque();
     }
     catch (std::exception &e)
