@@ -160,7 +160,7 @@ static Pairs merge_pairs(Pairs &left, Pairs &right)
     Pairs merged;
     while (left.size() > 0 && right.size() > 0)
     {
-        if (left[0].first < right[0].first)
+        if (left[0].second < right[0].second)
         {
             merged.push_back(left[0]);
             left.erase(left.begin());
@@ -171,12 +171,12 @@ static Pairs merge_pairs(Pairs &left, Pairs &right)
             right.erase(right.begin());
         }
     }
-    if (left.size() > 0)
+    while (left.size() > 0)
     {
         merged.push_back(left[0]);
         left.erase(left.begin());
     }
-    else if (right.size() > 0)
+    while (right.size() > 0)
     {
         merged.push_back(right[0]);
         right.erase(right.begin());
