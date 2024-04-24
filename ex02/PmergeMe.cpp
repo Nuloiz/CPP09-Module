@@ -146,8 +146,10 @@ static void sort_pairs(Pairs &pairs)
 
 Pairs sort_all_pairs(Pairs &pairs)
 {
-    Pairs left(0, pairs.begin() + (pairs.size() / 2));
-    Pairs right(pairs.begin() + pairs.size() / 2, pairs.size());
+    if (pairs.size() == 1)
+        return (pairs);
+    Pairs left(pairs.begin(), pairs.begin() + (pairs.size() / 2));
+    Pairs right(pairs.begin() + (pairs.size() / 2), pairs.end());
     left = sort_all_pairs(left);
     right = sort_all_pairs(right);
     return (merge_pairs(left, right));
