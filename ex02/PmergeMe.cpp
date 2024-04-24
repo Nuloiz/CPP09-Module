@@ -113,13 +113,15 @@ void PmergeMe::sort_vector(Pairs &pairs)
 {
     std::vector<int> tmp;
 
-    vector.push_back(pairs[0].first);
+    if (pairs[0].first != -1)
+        vector.push_back(pairs[0].first);
     vector.push_back(pairs[0].second);
+    pairs.erase(pairs.begin());
     while (pairs.size() > 0)
     {
         if (pairs[0].first == -1)
         {
-            tmp.push_back(pairs[0].second);
+            vector.push_back(pairs[0].second);
             pairs.erase(pairs.begin());
         }
         else
@@ -135,13 +137,15 @@ void PmergeMe::sort_deque(Pairs &pairs)
 {
     std::deque<int> tmp;
 
-    deque.push_back(pairs[0].first);
+    if (pairs[0].first != -1)
+        deque.push_back(pairs[0].first);
     deque.push_back(pairs[0].second);
+    pairs.erase(pairs.begin());
     while (pairs.size() > 0)
     {
         if (pairs[0].first == -1)
         {
-            tmp.push_back(pairs[0].second);
+            deque.push_back(pairs[0].second);
             pairs.erase(pairs.begin());
         }
         else
