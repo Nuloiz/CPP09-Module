@@ -24,8 +24,8 @@ public:
     void fill_deque(char *argv, int k);
     Pairs create_pairs_vector();
     Pairs create_pairs_deque();
-    void sort_vector();
-    void sort_deque();
+    void sort_vector(Pairs &pairs);
+    void sort_deque(Pairs &pairs);
     void print_vector();
     void print_deque();
 
