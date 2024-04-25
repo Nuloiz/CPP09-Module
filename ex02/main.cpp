@@ -51,7 +51,8 @@ int main(int argc, char **argv)
     {
         std::cout << "Error: " << e.what() << std::endl;
     }
-    try {
+    /*try {
+        input_check(argv, &p);
         std::cout << "Deque:" << std::endl;
         p.print_deque();
         std::cout << "----------------" << std::endl;
@@ -66,6 +67,6 @@ int main(int argc, char **argv)
     catch (std::exception &e)
     {
         std::cout << "Error: " << e.what() << std::endl;
-    }
+    }*/
     return (0);
 }

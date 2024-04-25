@@ -171,11 +171,13 @@ void PmergeMe::vector_jacobsthal(Pairs &tmp)
         num = jacobsthal[it] - 2;
         while (num > jacobsthal[it - 1] - 2 && num >= 0)
         {
-            vector.insert(std::lower_bound(vector.begin(), std::find(vector.begin(), vector.end(), tmp[num].second), tmp[num].first), tmp[num].first);
+            if (num < (int)tmp.size())
+                vector.insert(std::lower_bound(vector.begin(), std::find(vector.begin(), vector.end(), tmp[num].second), tmp[num].first), tmp[num].first);
             num--;
         }
         it++;
     }
+    std::cout << "----------------" << std::endl;
     delete jacobsthal;
 }
 
@@ -190,7 +192,8 @@ void PmergeMe::deque_jacobsthal(Pairs &tmp)
         num = jacobsthal[it] - 2;
         while (num > jacobsthal[it - 1] - 2 && num >= 0)
         {
-            deque.insert(std::lower_bound(deque.begin(), std::find(deque.begin(), deque.end(), tmp[num].second), tmp[num].first), tmp[num].first);
+            if (num <= (int)tmp.size())
+                deque.insert(std::lower_bound(deque.begin(), std::find(deque.begin(), deque.end(), tmp[num].second), tmp[num].first), tmp[num].first);
             num--;
         }
         it++;
