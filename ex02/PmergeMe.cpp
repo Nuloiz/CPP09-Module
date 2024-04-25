@@ -177,7 +177,6 @@ void PmergeMe::vector_jacobsthal(Pairs &tmp)
         }
         it++;
     }
-    std::cout << "----------------" << std::endl;
     delete jacobsthal;
 }
 

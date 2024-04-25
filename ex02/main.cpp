@@ -36,6 +36,14 @@ int main(int argc, char **argv)
     try
     {
         input_check(argv, &p);
+    }
+    catch (std::exception &e)
+    {
+        std::cout << "Error: " << e.what() << std::endl;
+        return (1);
+    }
+    try
+    {
         std::cout << "Vector:" << std::endl;
         p.print_vector();
         std::cout << "----------------" << std::endl;
@@ -51,8 +59,7 @@ int main(int argc, char **argv)
     {
         std::cout << "Error: " << e.what() << std::endl;
     }
-    /*try {
-        input_check(argv, &p);
+    try {
         std::cout << "Deque:" << std::endl;
         p.print_deque();
         std::cout << "----------------" << std::endl;
@@ -67,6 +74,6 @@ int main(int argc, char **argv)
     catch (std::exception &e)
     {
         std::cout << "Error: " << e.what() << std::endl;
-    }*/
+    }
     return (0);
 }
