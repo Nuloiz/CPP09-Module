@@ -26,6 +26,8 @@ public:
     Pairs create_pairs_deque();
     void sort_vector(Pairs &pairs);
     void sort_deque(Pairs &pairs);
+    void vector_jacobsthal(Pairs &tmp);
+    void deque_jacobsthal(Pairs &tmp);
     void print_vector();
     void print_deque();
 

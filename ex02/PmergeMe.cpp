@@ -2,6 +2,7 @@
 
 static void sort_pairs(Pairs &pairs);
 static Pairs merge_pairs(Pairs &left, Pairs &right);
+static int *jacobsthal_gen(int size);
 
 PmergeMe::PmergeMe()
 {
@@ -111,7 +112,7 @@ Pairs PmergeMe::create_pairs_deque()
 
 void PmergeMe::sort_vector(Pairs &pairs)
 {
-    std::vector<int> tmp;
+    Pairs tmp;
 
     if (pairs[0].first != -1)
         vector.push_back(pairs[0].first);
@@ -126,16 +127,17 @@ void PmergeMe::sort_vector(Pairs &pairs)
         }
         else
         {
-            tmp.push_back(pairs[0].first);
+            tmp.push_back(pairs[0]);
             vector.push_back(pairs[0].second);
             pairs.erase(pairs.begin());
         }
     }
+    vector_jacobsthal(tmp);
 }
 
 void PmergeMe::sort_deque(Pairs &pairs)
 {
-    std::deque<int> tmp;
+    Pairs tmp;
 
     if (pairs[0].first != -1)
         deque.push_back(pairs[0].first);
@@ -150,11 +152,50 @@ void PmergeMe::sort_deque(Pairs &pairs)
         }
         else
         {
-            tmp.push_back(pairs[0].first);
+            tmp.push_back(pairs[0]);
             deque.push_back(pairs[0].second);
             pairs.erase(pairs.begin());
         }
     }
+    deque_jacobsthal(tmp);
+}
+
+void PmergeMe::vector_jacobsthal(Pairs &tmp)
+{
+    int *jacobsthal = jacobsthal_gen(tmp.size());
+    int it = 0;
+    int num;
+    int vsiz = (int)vector.size();
+    while ((int)vector.size() < vsiz + (int)tmp.size())
+    {
+        num = jacobsthal[it] - 2;
+        while (num > jacobsthal[it - 1] - 2 && num >= 0)
+        {
+            vector.insert(std::lower_bound(vector.begin(), std::find(vector.begin(), vector.end(), tmp[num].second), tmp[num].first), tmp[num].first);
+            num--;
+        }
+        it++;
+    }
+    delete jacobsthal;
+}
+
+void PmergeMe::deque_jacobsthal(Pairs &tmp)
+{
+    int *jacobsthal = jacobsthal_gen(tmp.size());
+    int it = 0;
+    int num;
+    int dsiz = (int)deque.size();
+    while ((int)deque.size() < dsiz + (int)tmp.size())
+    {
+        num = jacobsthal[it] - 2;
+        while (num > jacobsthal[it - 1] - 2 && num >= 0)
+        {
+            deque.insert(std::lower_bound(deque.begin(), std::find(deque.begin(), deque.end(), tmp[num].second), tmp[num].first), tmp[num].first);
+            num--;
+        }
+        it++;
+    }
+    delete jacobsthal;
 }
 
 void PmergeMe::print_vector()
@@ -231,3 +272,13 @@ static Pairs merge_pairs(Pairs &left, Pairs &right)
     }
     return (merged);
 }
+
+    static int *jacobsthal_gen(int size)
+    {
+        int *jacobsthal = new int[size];
+        jacobsthal[0] = 3;
+        jacobsthal[1] = 5;
+        for (int i = 2; i < size; i++)
+            jacobsthal[i] = jacobsthal[i - 1] + (jacobsthal[i - 2] * 2);
+        return (jacobsthal);
+    }
