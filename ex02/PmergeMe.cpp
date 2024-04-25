@@ -192,7 +192,7 @@ void PmergeMe::deque_jacobsthal(Pairs &tmp)
         num = jacobsthal[it] - 2;
         while (num > jacobsthal[it - 1] - 2 && num >= 0)
         {
-            if (num <= (int)tmp.size())
+            if (num < (int)tmp.size())
                 deque.insert(std::lower_bound(deque.begin(), std::find(deque.begin(), deque.end(), tmp[num].second), tmp[num].first), tmp[num].first);
             num--;
         }
