@@ -7,6 +7,7 @@
 #include <exception>
 #include <bits/stdc++.h>
 #include <iterator>
+#include <sys/time.h>
 
 typedef std::vector<std::pair<int, int> > Pairs;
 

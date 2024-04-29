@@ -205,9 +205,10 @@ void PmergeMe::print_vector()
     std::vector<int>::iterator it = vector.begin();
     while (it != vector.end())
     {
-        std::cout << *it << std::endl;
+        std::cout << *it << " ";
         it++;
     }
+    std::cout << std::endl;
 }
 
 void PmergeMe::print_deque()
@@ -215,9 +216,10 @@ void PmergeMe::print_deque()
     std::deque<int>::iterator it = deque.begin();
     while (it != deque.end())
     {
-        std::cout << *it << std::endl;
+        std::cout << *it << " ";
         it++;
     }
+    std::cout << std::endl;
 }
 
 static void sort_pairs(Pairs &pairs)

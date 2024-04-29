@@ -23,6 +23,29 @@ static void input_check(char **argv, PmergeMe *p)
     }
 }
 
+static unsigned long long get_current_time()
+{
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return (tv.tv_sec * 1000000 + tv.tv_usec);
+}
+
+static void printTime(unsigned long long us)
+{
+    double duration = static_cast<double>(us);
+    if (us >= 60000000) {
+        std::cout << std::setprecision(5) << duration / 60000000.0 << " m";
+    } else if (us >= 1000000) {
+        std::cout << std::setprecision(5) << duration / 1000000.0 << " s";
+    } else if (us >= 1000) {
+        std::cout << std::setprecision(5) << duration / 1000.0 << " ms";
+    } else {
+        std::cout << us << " us";
+    }
+    std::cout << std::endl;
+}
+
+
 int main(int argc, char **argv)
 {
     argv++;
@@ -44,32 +67,34 @@ int main(int argc, char **argv)
     }
     try
     {
-        std::cout << "Vector:" << std::endl;
+        std::cout << "Vector before: ";
         p.print_vector();
-        std::cout << "----------------" << std::endl;
+        unsigned long long vtime = get_current_time();
         pairs = p.create_pairs_vector();
-        for (Pairs::iterator it = pairs.begin(); it != pairs.end(); it++)
-            std::cout << it->first << " " << it->second << std::endl;
-        std::cout << "----------------" << std::endl;
         pairs = sort_all_pairs(pairs);
         p.sort_vector(pairs);
+        vtime = get_current_time() - vtime;
+        std::cout << "Vector after: ";
         p.print_vector();
+        std::cout << "Time to process a range of " << p.get_vector().size() << " elements with std::vector : ";
+        printTime(vtime);
     }
     catch (std::exception &e)
     {
         std::cout << "Error: " << e.what() << std::endl;
     }
     try {
-        std::cout << "Deque:" << std::endl;
+        std::cout << "Deque before: ";
         p.print_deque();
-        std::cout << "----------------" << std::endl;
+        unsigned long long dtime = get_current_time();
         pairs = p.create_pairs_deque();
-        for (Pairs::iterator it = pairs.begin(); it != pairs.end(); it++)
-            std::cout << it->first << " " << it->second << std::endl;
-        std::cout << "----------------" << std::endl;
         pairs = sort_all_pairs(pairs);
         p.sort_deque(pairs);
+        dtime = get_current_time() - dtime;
+        std::cout << "Deque after: ";
         p.print_deque();
+        std::cout << "Time to process a range of " << p.get_deque().size() << " elements with std::deque : ";
+        printTime(dtime);
     }
     catch (std::exception &e)
     {
