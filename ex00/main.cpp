@@ -125,7 +125,7 @@ int main(int argc, char **argv)
             while (it != ite && it->first > date)
                 it--;
             double tmp = it->second;
-            std::cout << "Line: " << l << " | " << date << " => " << num << " = " << tmp * num << std::endl;
+            std::cout << "Line: " << l << " | " << date << " => " << num << " = " << std::setprecision(15) << tmp * num << std::endl;
         }
         catch (std::exception &e)
         {
