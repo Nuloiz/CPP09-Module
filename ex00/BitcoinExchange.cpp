@@ -25,12 +25,12 @@ void BitcoinExchange::get_data(const std::string &line)
     bitcoin_values.insert(std::pair<std::string, double>(line.substr(0, 10), value));
 }
 
-std::map<std::string, double> BitcoinExchange::get_bitcoin_values() const
+const std::map<std::string, double> *BitcoinExchange::get_bitcoin_values() const
 {
-    return bitcoin_values;
+    return &bitcoin_values;
 }
 
-std::map<std::string, double>::iterator BitcoinExchange::iteration(std::string date)
+/*std::map<std::string, double>::iterator BitcoinExchange::iteration(std::string date)
 {
     std::map<std::string, double>::iterator it = bitcoin_values.begin();
     std::map<std::string, double>::iterator ite = bitcoin_values.end();
@@ -38,4 +38,4 @@ std::map<std::string, double>::iterator BitcoinExchange::iteration(std::string d
     while (it != ite && ite->first > date)
         ite--;
     return (ite);
-}
+}*/
