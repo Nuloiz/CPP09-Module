@@ -20,7 +20,6 @@ public:
 
     void get_data(std::string const &line);
     const std::map<std::string, double>  *get_bitcoin_values() const;
-    //std::map<std::string, double>::iterator iteration(std::string date);
 
 private:
     std::map<std::string, double> bitcoin_values;
